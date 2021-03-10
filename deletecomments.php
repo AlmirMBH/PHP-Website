@@ -24,11 +24,8 @@
             }else{
                 echo "The comment does not exist!";
             }
-
             $connection->query($query);
-
-        }
-    
+        }    
 ?>
 
 <!DOCTYPE html>

@@ -28,7 +28,7 @@
                 $message = "User with id {$userId} has been deleted.";
                 Statistics::writeLog("logs/users.log", "{$_SESSION['name']} has deleted user {$userId}.");
                 if(file_exists('avatars/' . $userId . '.jpg')){
-                    unlink('avatars/' . $userId . '.jpg'); // unlink used to delete avatar from server
+                    unlink('avatars/' . $userId . '.jpg'); 
                 }
             }            
         }else{
@@ -56,10 +56,7 @@
 
         <div id="content">
 
-            <div id="main"> 
-                <div id="search">
-                    <?php //include_once('include/search.php'); ?>
-                </div>
+            <div id="main">                
 
                 <section id="deleteUser">                        
                     <div id="deleteUser">
@@ -84,7 +81,7 @@
                 </section>  
                 
                 <div class="user-message">
-                    <?php echo $message; ?>
+                    <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
                 </div>
             </div>
 

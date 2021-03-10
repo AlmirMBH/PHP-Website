@@ -35,18 +35,14 @@
         <div id="content">
 
             <div id="main"> 
-                <div id="search">
-                    <?php //include_once('include/search.php'); ?>
-                </div>
-
+                
                 <section id="new-user">                        
                     <div id="add-user">
                         <h2>Add news</h2>
                         <div id="new-user-form">
                             <form action="addnews.php" method="POST" enctype="multipart/form-data">
                                 <input type="text" name="title" placeholder="Enter title" required><br>
-                                <textarea name="text" placeholder="Enter text" required></textarea><br>                                
-                                <!--<input type="text" name="name" placeholder="Enter author name" required><br>-->
+                                <textarea name="text" placeholder="Enter text" required></textarea><br>                                                                
                                 <select name="category" id="category">
                                     <option value="0">-- Select category --</option>
                                     <?php     
@@ -106,7 +102,7 @@
                 ?>
                 
                 <div class="user-message">
-                    <?php echo $message; ?>
+                    <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
                 </div>
 
             </div>

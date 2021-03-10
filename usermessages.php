@@ -74,6 +74,7 @@
                             $message = "No new messages!";
                         }
                     ?>
+                    
                 </div>
 
                     <?php                    
@@ -88,13 +89,14 @@
                                     $userId = $userMessage->user_id;
                                     $userName = $userMessage->name;
                                     $userEmail = $userMessage->email;
+                                    $adminAnswer = $userMessage->answer;
                     ?>                                    
                         <form action="usermessages.php" method="POST">
                             <input type="hidden" name="messageId" value="<?php echo $messageId; ?>">
                             <input type="hidden" name="userId" value="<?php echo $userId; ?>">
                             <input type="hidden" name="name" value="<?php echo $userName; ?>">
                             <input type="hidden" name="email" value="<?php echo $userEmail; ?>">
-                            <textarea name="answer" cols="30" rows="10" placeholder="Enter your answer" required></textarea><br>
+                            <textarea name="answer" cols="30" rows="10" placeholder="Enter your answer" required><?php echo $adminAnswer; ?></textarea><br>
                             <button name="answer-message">Submit answer</button>
                         </form>
                                             
@@ -105,25 +107,20 @@
                     ?> 
 
                     <?php
-                    if(isset($_POST['messageId']) and isset($_POST['userId']) and isset($_POST['name'])and isset($_POST['email']) and isset($_POST['answer'])){
-                        $messageId = $_POST['messageId'] . "<br>";
-                        $userId = $_POST['userId'] . "<br>";
-                        //echo $_POST['name'] . "<br>";
-                        //echo $_POST['email'] . "<br>";
-                        $answer = $_POST['answer'];
+                        if(isset($_POST['messageId']) and isset($_POST['userId']) and isset($_POST['name'])and isset($_POST['email']) and isset($_POST['answer'])){
+                            $messageId = $_POST['messageId'] . "<br>";
+                            $userId = $_POST['userId'] . "<br>";                        
+                            $answer = $_POST['answer'];
 
-                        $query = "UPDATE messages SET answer='{$answer}' WHERE id='{$messageId}'";
-                        $queryExecuted = $connection->query($query);
+                            $query = "UPDATE messages SET answer='{$answer}' WHERE id='{$messageId}'";
+                            $queryExecuted = $connection->query($query);
 
-                        if(!$queryExecuted){
-                            $message = "Your answer has not been sent!";
-                        }else{
-                            $message = "Your message has just been sent.";
+                            if(!$queryExecuted){
+                                $message = "Your answer has not been sent!";
+                            }else{
+                                $message = "Your message has just been sent.";
+                            }
                         }
-                    }
-                        
-
-                    
                     ?>    
 
                 <div class="user-message">

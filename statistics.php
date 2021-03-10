@@ -72,7 +72,7 @@
                     }                
                 ?>
                 <div class="user-message">
-                    <?php echo $message; ?>
+                    <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
                 </div>
                 
             </div>

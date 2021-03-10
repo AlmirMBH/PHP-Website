@@ -26,8 +26,7 @@
             }else{
                 echo "The comment does not exist!";
             }
-        }
-    
+        }    
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +36,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet">
-    <title>Delete comments</title>
+    <title>My comments</title>
 </head>
 <body>
 
@@ -51,7 +50,7 @@
 
             <div id="main"> 
                 <div id="approve-comments">
-                    <h2>Delete comments</h2>  
+                    <h2>My comments</h2>  
 
                     <?php
                         $query = "SELECT * FROM comments WHERE user_id={$_SESSION['id']}";

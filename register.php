@@ -39,8 +39,7 @@
                                 <input type="file" name="avatar"><br><br> 
                                 <button name="new-user-button">Register</button>
                             </form>
-                        </div>                
-                        
+                        </div>   
                 </section>
                     
                 <?php
@@ -63,7 +62,6 @@
                                 $message = "Database error" . $connection->error();
                                 Statistics::writeLog("logs/users.log", "{$name} Database error {$connection->error()}");
                             }
-
                                 $userId = $connection->insert_id();                                
                                 $_SESSION['id'] = $userId;
                                 $_SESSION['name'] = $name;                                
@@ -81,11 +79,10 @@
                                             $message .= "Avatar image has been uploaded.";
                                         }else{ $message .= "Avatar image has not been uploaded."; }
                                     }
-                                }
-                            
+                                }                            
                         }else {
                             $message = "You are not allowed to use forbidden characters!"; 
-                        Statistics::writeLog("logs/users.log", "User tried to use forbidden characters - name input: {$name}; email input: {$email}; username input: {$username}; password input: {$password}; IP address: {$_SERVER['REMOTE_ADDR']}.");}
+                            Statistics::writeLog("logs/users.log", "User tried to use forbidden characters - name input: {$name}; email input: {$email}; username input: {$username}; password input: {$password}; IP address: {$_SERVER['REMOTE_ADDR']}.");}
                         }else{ 
                             $message = "All fields are required!"; 
                         }
@@ -93,7 +90,7 @@
                 ?>
                 
                 <div class="user-message">
-                    <?php echo $message; ?>
+                    <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
                 </div>
 
             </div>

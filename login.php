@@ -54,24 +54,20 @@
                                 $row = $connection->fetch_object($result);
                                 
                                 if($row->status == 'active'){
-                                    if($row->password == $password){                                                                        
-
-                                        //echo "{$row->name}, $row->status";
+                                    if($row->password == $password){                                        
                                         $_SESSION['id'] = $row->id;
                                         $_SESSION['name'] = $row->name;
                                         $_SESSION['role'] = $row->role;
                                         $_SESSION['email'] = $row->email;
                                         Statistics::writeLog("logs/login.log", "{$_SESSION['name']} logged in.");
                                                                             
-                                        if(isset($_POST['remember'])){
-                                            
+                                        if(isset($_POST['remember'])){                                            
                                             setcookie("id", $_SESSION['id'], time()+3600,"/");
                                             setcookie("name", $_SESSION['name'], time()+3600,"/");
                                             setcookie("role", $_SESSION['role'], time()+3600,"/");
                                             setcookie("email", $_SESSION['email'], time()+3600,"/");
                                         }
-                                        header("location:index.php");
-
+                                            header("location:index.php");
                                     }else{ 
                                         $message = "Incorrect password '{$password}'!";
                                         Statistics::writeLog("logs/login.log", "Incorrect password {$password}."); 
@@ -91,14 +87,12 @@
                         Statistics::writeLog("logs/login.log", "User did not fill out all fields.");}
                 }else{ 
                     $message = isset($_GET['message']) ? $_GET['message'] : "Welcome to login page!"; 
-                }
-                    
+                }                    
             ?>
                 
-            <div class="login-message">
-                <p><?php echo $message; ?></p>
-            </div>
-            
+            <div class="user-message">
+                <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
+            </div>            
         </div>
 
         <div id="sidebar">

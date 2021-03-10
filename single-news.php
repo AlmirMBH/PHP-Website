@@ -157,6 +157,7 @@
                     </form>                
                 </div>
                 <?php }?>
+                
                 <div class="user-message">
                     <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
                 </div>

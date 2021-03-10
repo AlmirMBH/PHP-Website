@@ -34,7 +34,6 @@
         }else{
             $message = "Select news to delete!";
         }
-
     }
 ?>
 
@@ -57,10 +56,7 @@
 
         <div id="content">
 
-            <div id="main"> 
-                <div id="search">
-                    <?php //include_once('include/search.php'); ?>
-                </div>
+            <div id="main">                 
 
                 <section id="deleteUser">                        
                     <div id="deleteUser">
@@ -85,7 +81,7 @@
                 </section>  
                 
                 <div class="user-message">
-                    <?php echo $message; ?>
+                    <p style="color:red; font-weight:900; text-align:center"><?php echo $message; ?></p>
                 </div>
             </div>
 

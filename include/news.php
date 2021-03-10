@@ -1,8 +1,12 @@
 <?php  
   
     require_once('_require.php');
+    $connection = new Database();
+        if(!$connection->connect()){
+            exit();
+        }
             
-$query = "SELECT * FROM wnews WHERE deleted = 0 ORDER BY id DESC";
+    $query = "SELECT * FROM wnews WHERE deleted = 0 ORDER BY id DESC";
 
     if(isset($_GET['id'])){        
         $id = $_GET['id'];
@@ -39,21 +43,28 @@ if(isset($_GET['search']))
         exit();
     }
 
- 
-    echo "<div class='news'><h2>Latest news</h2>";
+    if(isset($_GET['category'])){
+        $categoryQuery = "SELECT * FROM categories WHERE id=" . $_GET['category'];                            
+        $category = $connection->query($categoryQuery);
+        $category = $connection->fetch_object($category);
+        echo "<div class='news'><h2>{$category->category_name} news</h2>";    
+    }else{
+        echo "<div class='news'><h2>Latest news</h2>";
+    } 
+    
     if(!isset($_GET['id'])){
         echo "<div style='color: red'>Number of news: ". $connection->num_rows($result) . "</div>";    
     }
     
 while($row = $connection->fetch_object($result)){
-
+    
         $image = 'images/placeholder.png';
 
         if(file_exists("images/{$row->id}.jpg")){
             $image = "images/{$row->id}.jpg";
         }
-
-        echo "<div style='float:left'>";
+        
+        echo "<div style='float:left'>";        
         echo "<img style='width:200px; margin:25px 10px 0px 0px' src='$image'>";        
         echo "</div>";
         echo "<div style='margin-top:30px;'><a href='index.php?category=" . $row->category . "'>" . $row->category_name . "</a></div>";
