@@ -29,10 +29,7 @@
 
         <div id="content">
 
-            <div id="main"> 
-                <div id="search">
-                    <?php //include_once('include/search.php'); ?>
-                </div>
+            <div id="main">                 
 
                 <section id="new-user">                        
                     <div id="add-user">

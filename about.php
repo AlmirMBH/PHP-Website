@@ -69,14 +69,13 @@
                         $name = isset($_POST['name']) ? $_POST['name'] : $_SESSION['name'];
                         $email = isset($_POST['email']) ? $_POST['email'] : $_SESSION['email'];
                         $text = $_POST['text'];
+
+                        $title = sanitizeString($title);
+                        $name = sanitizeString($name);
+                        $email = sanitizeEmail($email);
+                        $text = sanitizeString($text);
+                        $userId = sanitizeInt($userId);
                         
-                        $title = filter_var($title, FILTER_SANITIZE_STRING);
-                        $name = filter_var($name, FILTER_SANITIZE_STRING);
-                        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-                        $text = filter_var($text, FILTER_SANITIZE_STRING);
-                        $userId = filter_var($userId, FILTER_SANITIZE_NUMBER_INT);
-                       
-                    
                         if($userId != '' and $title != '' and $name != '' and $email != '' and $text != ''){
 
                             $query = "INSERT INTO messages (user_id, title, name, email, text) 

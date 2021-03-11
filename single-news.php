@@ -7,17 +7,21 @@
         if(!$connection->connect()){
             exit();
         }
-
-            if(isset($_POST['id']) and isset($_POST['name']) and isset($_POST['comment'])){
+            
+        
+            if(isset($_POST['id']) and isset($_POST['name']) and isset($_POST['comment'])){                
                 
                 $id = $_POST['id'];
                 $name = $_POST['name'];
                 $comment = $_POST['comment'];
                 $userId = $_SESSION['id'];
                 if($id != "" and $name != "" and $comment != ""){
-                    $name = filter_var($name, FILTER_SANITIZE_STRING);
-                    $comment = filter_var($comment, FILTER_SANITIZE_STRING);
-                    $userId = filter_var($userId, FILTER_SANITIZE_NUMBER_INT);
+
+                    $id = sanitizeInt($id);
+                    $name = sanitizeString($name);
+                    $comment = sanitizeString($comment);
+                    $userId = sanitizeInt($userId);                    
+
                     $upit = "INSERT INTO comments (news_id, user_id, name, comment) VALUES ({$id}, {$userId}, '{$name}', '{$comment}')";
                     $connection->query($upit);
                     if($connection->error()){
@@ -51,15 +55,28 @@
             <div id="main" style="margin-top: 50px">      
                 <div id="news">
                     
-                    <?php                    
-                        if(isset($_GET['id'])){                             
-                            $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+                    <?php        
+                    
+                    if(isset($_GET['like'])){
+                        $commentId = $_GET['like'];
+                        $commentId = sanitizeInt($commentId);
+                        $like = "UPDATE comments SET likes =likes+1 WHERE id = $commentId";              
+                        $connection->query($like);           
+                    }elseif(isset($_GET['dislike'])){
+                        $commentId = $_GET['dislike'];
+                        $commentId = sanitizeInt($commentId);
+                        $like = "UPDATE comments SET dislikes=dislikes+1 WHERE id=" . $commentId;
+                        $connection->query($like);
+                    }
+
+                        if(isset($_GET['id'])){                                                         
+                            $id = sanitizeInt($_GET['id']);
                         }elseif(isset($id)){
-                            $id = $id;                            
+                            $id = sanitizeInt($id);                            
                         }
-                       
-                        if(isset($id) and $id != '' and $id > 0){                                    
-                            if(filter_var($id, FILTER_VALIDATE_INT)){                                                           
+                                               
+                        if(isset($id) and $id != '' and $id > 0){                                                                
+                            if(validateInt($id)){                                
                                 $query = "SELECT * FROM wnews WHERE deleted = 0 AND id =" . $id;
                             }                          
                             
@@ -100,10 +117,11 @@
                                     }
                                 }
 
-                            $query = "SELECT count(id) AS number FROM comments WHERE news_id={$id} and approved=1";
+                            $query = "SELECT count(id) AS number, id, likes, dislikes FROM comments WHERE news_id={$id} and approved=1";
                             $numberOfComments = $connection->query($query);
                             $numberOfComments = $connection->fetch_object($numberOfComments);
-                            echo "Number of comments: {$numberOfComments->number}";    
+                            echo "Number of comments: {$numberOfComments->number}"; 
+                            echo "<br>";                                
                             echo "<hr style='margin-top:10px'>";                        
                         }else{
                             $userAttempt = filter_var($_GET['id'], FILTER_SANITIZE_STRING);
@@ -119,7 +137,7 @@
                     ?>
 
                     <?php
-                        //Show comment                        
+                        //Show comment and likes                        
                         if(isset($id) and $id != '' and $id > 0){
                             $query = "SELECT * FROM comments WHERE news_id={$id} AND approved=1 ORDER by time DESC";
                             $result = $connection->query($query);
@@ -139,8 +157,11 @@
                                     echo "<div>";
                                     echo "<div>{$row->time}</div>";
                                     echo  "<div><b>{$row->name}</b></div>";
-                                    echo "<div>{$row->comment}</div>";
-                                    echo "<div>Likes: {$row->likes} | Dislikes: {$row->dislikes}</div>";                                    
+                                    echo "<div>{$row->comment}</div>";                                    
+                                    if($row->id > 0){
+                                        echo "<a href='single-news.php?id={$row->news_id}&like={$row->id}'>" . "<b>Like comment:</b> " . "</a>" . $row->likes;    
+                                        echo "<a href='single-news.php?id={$row->news_id}&dislike={$row->id}'>" . "| <b>Dislike comment</b> " ."</a>" . $row->dislikes;    
+                                    }                                    
                                     echo "</div><br>";
                                 }
                         }

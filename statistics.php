@@ -63,7 +63,7 @@
 
                         if(file_exists('logs/'.$file)){
                             $fileContents = file_get_contents("logs/$file");                            
-                            $fileContents = filter_var($fileContents, FILTER_SANITIZE_STRING) ;
+                            $fileContents = filter_var($fileContents, FILTER_SANITIZE_STRING);
                             $fileContents = nl2br($fileContents);                            
                             echo "<p style='width:500px'>$fileContents</p>";
                         }else{

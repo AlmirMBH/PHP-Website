@@ -91,14 +91,15 @@ while($row = $connection->fetch_object($result)){
     echo "<i>".$row->time."</i><br>";
         if(isset($_SESSION['role']) == 'admin'){
             echo "<i>Viewed: {$row->viewed} </i><br>";
-        }   
+        } 
 
-    $query = "SELECT count(id) AS number FROM comments WHERE news_id={$row->id} and approved=1";
+    $query = "SELECT count(id) AS number, likes, dislikes FROM comments WHERE news_id={$row->id} and approved=1";
     $numberOfComments = $connection->query($query);
     $numberOfComments = $connection->fetch_object($numberOfComments);
     echo "Number of comments: {$numberOfComments->number}";
-    echo "<hr style='margin-top:10px'>";
+    echo "<hr style='margin-top:10px'>";    
 }
+
     echo "</div>";   
      
     
