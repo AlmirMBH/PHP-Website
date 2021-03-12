@@ -35,7 +35,7 @@
                                 <input type="text" name="email" placeholder="Enter email" required><br>
                                 <input type="text" name="username" placeholder="Enter username" required><br>
                                 <input type="text" name="password" placeholder="Enter password" required><br>
-                                <textarea name="comment" id="comment" cols="16" rows="5" placeholder="Enter your comment"></textarea><br>                                
+                                <!-- <textarea name="comment" id="comment" cols="16" rows="5" placeholder="Enter your comment"></textarea><br> -->
                                 <input type="file" name="avatar"><br><br> 
                                 <button name="new-user-button">Register</button>
                             </form>
@@ -47,14 +47,16 @@
                         $name = $_POST['name'];
                         $email = $_POST['email'];
                         $username = $_POST['username'];
-                        $comment = $_POST['comment'];
+                        //$comment = $_POST['comment'];
                         $password = $_POST['password'];
                         $role = 'user';
                         
                         if($name != '' and $email != '' and $username != '' and $password != ''){
                             if(validateString($name) and validateEmail($email) and validateString($username) and validateString($password)){
-                                $query = "INSERT INTO users (name, email, username, password, role, comment) 
-                                VALUES('{$name}', '{$email}', '{$username}', '{$password}', '{$role}', '{$comment}')";
+                                //$query = "INSERT INTO users (name, email, username, password, role, comment) 
+                                //VALUES('{$name}', '{$email}', '{$username}', '{$password}', '{$role}', '{$comment}')";
+                                $query = "INSERT INTO users (name, email, username, password, role) 
+                                VALUES('{$name}', '{$email}', '{$username}', '{$password}', '{$role}')";
 
                                 $connection->query($query);
 
