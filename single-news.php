@@ -170,8 +170,8 @@
                 </div>
                 <?php if(login()){?>
                 <div>
-                    <form action="single-news.php" method="POST">
-                        <input type="text" name="name" placeholder="Enter name" required><br><br>                                        
+                    <form action="single-news.php" method="POST">                        
+                        <input type="hidden" name="name" id="id" value="<?php echo $_SESSION['name']; ?>">                                    
                         <textarea name="comment" cols="30" rows="10" placeholder="Enter comment" required></textarea><br><br>
                         <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
                         <button>Submit comment</button>
